@@ -31,9 +31,9 @@ tprint("\n\nSYR - TECH - AB\n", font="small", chr_ignore=True)
 
 def user_name():
     """
-    User inputs their name, and function checks if
-    the user name is valid, without space, no numbers.
-    It also checks if the name is less than 2 or more than 25 character
+    User inputs their name, the function checks if
+    the username is valid, without space, no numbers.
+    It also checks if the username is between 3 to 12 characters
     """
     while True:
         try:
