@@ -43,7 +43,7 @@ As a returning or frequent user, I want:
 
 ### Frequent User.
 As a frequent user, I want:
-- To easily and quickly find the necessary information .
+- To easily and quickly find the necessary information.
 - To know if the suggested solutions are applicable for my problems.
 - To save time by quickly browsing and if necessary contacting the support line.
 
@@ -60,7 +60,7 @@ The colors used in this project are;
 
 
 ## Features
-There features of this project consists of -
+The features of this project consist of -
 - The user must enter a username and it should be between 3 to 12 characters.
 - The terminal throws a message to the user when -
     - There are any special characters in the name.
@@ -75,7 +75,7 @@ There features of this project consists of -
 
 - The terminal throws a message to the user when -
     - The user types a number.
-    - the user types any letter but a or b.
+    - the user types any letter but a, b or c.
     - The user inputs nothing and press enter.
     - The user types special characters.
     - The image of error when typed wrong and is not accepted; 
@@ -256,4 +256,4 @@ The code below needs to be entered on the terminal before starting with the depl
 - [Python in Plain English](https://python.plainenglish.io/build-a-fast-food-order-taker-in-python-87188efcbbdd)
 
 ## Appreciation
-> I really appreciate all the help that I have recieved and therefore would like to thank my tutors and my mentor Ronan. For the amazing suggestions, feedbacks and comments on my project.
+> I really appreciate all the help that I have recieved and therefore would like to thank my tutors and my mentor, Ronan for the amazing suggestions, feedbacks and comments on my project.
