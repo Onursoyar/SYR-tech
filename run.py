@@ -1,5 +1,6 @@
-
-
+"""
+Import gspread to work with google API
+"""
 import gspread
 from google.oauth2.service_account import Credentials
 from colorama import Fore
@@ -10,21 +11,22 @@ from art import tprint
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-    ]
+    "https://www.googleapis.com/auth/drive",
+]
 
-CREDS = Credentials.from_service_account_file('creds.json')    
+CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('syr-technologies')
+SHEET = GSPREAD_CLIENT.open("syr-technologies")
 
-customer = SHEET.worksheet('customers')
+customer = SHEET.worksheet("customers")
 
+# Records the username input by customers in sheets
 customer_details = []
 
-tprint("\n\nWelcome!\n\n", font='small', chr_ignore=True)
-tprint("\n\nSYR - TECH - AB\n", font='small', chr_ignore=True)
-
+# Prints logo and welcome sign
+tprint("\n\nWelcome!\n\n", font="small", chr_ignore=True)
+tprint("\n\nSYR - TECH - AB\n", font="small", chr_ignore=True)
 
 
 def user_name():
@@ -38,11 +40,13 @@ def user_name():
             user_name.name = input(Fore.BLUE + "\nEnter your \
 username: ").capitalize()
             if not user_name.name.isalpha():
-                print(Fore.RED + f"{user_name.name } is not a valid username. Try again")
+                print(
+                    Fore.RED + f"{user_name.name } is not valid. Try again"
+                )
                 continue
             elif len(user_name.name) <= 2 or len(user_name.name) > 25:
-                print(Fore.RED + f"Your name '{user_name.name}' should be between 3 to \
-12 characters. Try again.")
+                print(Fore.RED + f"Your name '{user_name.name}'\
+                should be between 3 to 12 characters. Try again.")
                 continue
             else:
                 customer_details.append(user_name.name)
@@ -53,12 +57,18 @@ username: ").capitalize()
     return user_name.name
 
 
-MENU = {"a","b","c"}
+TICKET_MENU = {"a", "b", "c"}
 
 
-def get_order():
+def ticket_order():
+    """
+    User selects ticket type and function recommends solutions
+    It also forwards if the solution is not relevant for customer
+    """
     print()
-    print(f"\nHello and welcome {user_name.name}, are you facing problems regarding our services? Choose an option below!")
+    print(
+        f"\nHello and welcome {user_name.name}, Choose an option below!"
+    )
     print()
     current_order = []
     while True:
@@ -66,44 +76,58 @@ def get_order():
         print()
         print("a) Account/Password, b) Software Error, c) Expired License")
         order = input()
-        if order in MENU:
+        if order in TICKET_MENU:
             current_order.append(order)
         else:
-            print("I'm sorry, we can't help you with that.")
+            print("I'm sorry, choose a, b or c.")
             continue
         if order == "a":
-            print("Have you tried the below solutions? yes/no")
+            print("Have you tried the solutions below? yes/no")
             print()
-            print("a) Logging out and in again. b) Reset your password. c) Try logging in on another device/browser or app. d) Erasing browser cache.")
+            print("-Log out and in again and reset your password.")
+            print("-Try logging in on another device/browser or app.")
+            print("-Check if your internet connection is stable.")
+            print("-Check if your account is outdated.")
+            print()
 
         elif order == "b":
-            print("Have you tried the below solutions? yes/no")
+            print("Have you tried the solutions below? yes/no")
             print()
-            print("a) Restarting your computer? b) Delete and re-install the application? c) Did you give permission for the app on your settings? d) Use the Web version and see if it works?")  
+            print("-Restart your computer, delete & re-install software.")
+            print("-Did you give permissions for the app on the settings?")
+            print("-Use the Web version and see if it works?")
+            print("-Try troubleshooting methods.")
+            print()
 
         elif order == "c":
-            print("Have you tried the below solutions? yes/no")
+            print("Have you tried the solutions below? yes/no")
             print()
-            print("a) Do you have a valid License? b) Have you checked if it expired? c) Can you use your account in another browser or app? d) Can you log in to your account?")        
+            print("-Do you have a valid license? Has it expired?")
+            print("-Can you use your account in another browser or app?")
+            print("-Can you log in to your account?")
+            print("-Is it the first time you are facing such problem?")
+            print()
 
-        choice = input()    
+        choice = input()
         if choice == ("yes"):
-            print("Please contact our support desk.")
-            print()
-            
-        elif choice == ("no"):   
-            print("Please try suggested solutions and comeback again.")
+            print("Please contact our support desk; support@syrtech.com")
+            print("syrtech.com, supportline; +4611223376")
             print()
 
-            
-        else: 
-            raise Exception("invalid input")   
-            break
+        elif choice == ("no"):
+            print("Please try suggested solutions and come back again.")
+            print()
 
-        if is_order_complete():
+        else:
+            print()
+            print("You need to enter yes or no")
+            continue
+
+        if order_complete():
             return current_order
 
-def is_order_complete():
+
+def order_complete():
     print("Do you need help with anything else? yes/no")
     choice = input()
     if choice == "no":
@@ -111,22 +135,25 @@ def is_order_complete():
     elif choice == "yes":
         return False
     else:
-        raise Exception("invalid input")
+        print()
+        print("You need to enter yes or no")
+        return order_complete()
+
 
 def output_order(order_list):
-    print("Thank you for visiting us and have a great day")
+    print("Thank you for visiting us and have a great day!")
     print()
     for order in order_list:
         print("Chosen ticket for support")
-        print(order) 
+        print(order)
+
 
 def main():
     user_name()
-    order = get_order()
+    order = ticket_order()
     output_order(order)
 
     customer.append_row(customer_details)
-
 
 
 if __name__ == "__main__":
