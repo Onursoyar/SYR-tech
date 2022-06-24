@@ -2,9 +2,7 @@
 
 import gspread
 from google.oauth2.service_account import Credentials
-
-import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore
 
 from art import tprint
 
@@ -20,13 +18,12 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('syr-technologies')
 
-questions = SHEET.worksheet('questions')
 customer = SHEET.worksheet('customers')
 
 customer_details = []
 
-tprint("\n\nWelcome!\n\n", font='small',chr_ignore=True)
-tprint("\n\nSYR - TECH - AB\n", font='small',chr_ignore=True)
+tprint("\n\nWelcome!\n\n", font='small', chr_ignore=True)
+tprint("\n\nSYR - TECH - AB\n", font='small', chr_ignore=True)
 
 
 
@@ -61,7 +58,7 @@ MENU = {"a","b","c"}
 
 def get_order():
     print()
-    print("Hello and welcome, are you facing problems regarding our services? Choose an option below!")
+    print(f"\nHello and welcome {user_name.name}, are you facing problems regarding our services? Choose an option below!")
     print()
     current_order = []
     while True:
@@ -87,14 +84,16 @@ def get_order():
         elif order == "c":
             print("Have you tried the below solutions? yes/no")
             print()
-            print("a) Do you have a valid License? b) Have you cehcked if it expired? c) Can you use your account in another browser or app? d) Can you log in to your account?")        
+            print("a) Do you have a valid License? b) Have you checked if it expired? c) Can you use your account in another browser or app? d) Can you log in to your account?")        
 
         choice = input()    
         if choice == ("yes"):
             print("Please contact our support desk.")
+            print()
             
         elif choice == ("no"):   
             print("Please try suggested solutions and comeback again.")
+            print()
 
             
         else: 
@@ -105,7 +104,7 @@ def get_order():
             return current_order
 
 def is_order_complete():
-    print("Anything else? yes/no")
+    print("Do you need help with anything else? yes/no")
     choice = input()
     if choice == "no":
         return True
@@ -116,6 +115,7 @@ def is_order_complete():
 
 def output_order(order_list):
     print("Thank you for visiting us and have a great day")
+    print()
     for order in order_list:
         print("Chosen ticket for support")
         print(order) 
@@ -124,6 +124,7 @@ def main():
     user_name()
     order = get_order()
     output_order(order)
+
     customer.append_row(customer_details)
 
 
