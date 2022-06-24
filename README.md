@@ -1,4 +1,4 @@
-# My-Sub My-Way
+# SYR-Tech support
 ![Main Page](/assets/images/main.png)
 
 [View the Live Project Here](https://syr-tech.herokuapp.com/)
