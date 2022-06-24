@@ -128,6 +128,12 @@ def ticket_order():
 
 
 def order_complete():
+    """
+    The function asks user if they need help with anything else.
+    If yes, forwards to error category.
+    If no, thanks for the visit.
+
+    """
     print("Do you need help with anything else? yes/no")
     choice = input()
     if choice == "no":
@@ -141,6 +147,9 @@ def order_complete():
 
 
 def output_order(order_list):
+    """
+    Thanks the user for their  visit.
+    """
     print("Thank you for visiting us and have a great day!")
     print()
     for order in order_list:
